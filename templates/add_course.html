@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Courses{% endblock %}
+
+{% block content %}
+<form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
+    <div class="col-12">
+      <div class="input-group">
+        <div class="input-group-text">Course Title</div>
+        <input type="text" class="form-control" placeholder="Course Title" value="{{ request.form['title'] }}" name="title">
+      </div>
+      <br>
+      <div class="input-group">
+        <div class="input-group-text">Instructor</div>
+        <input type="text" class="form-control" placeholder="Instructor" value="{{ request.form['instructor'] }}" name="instructor">
+      </div>
+      <br>
+      <div class="input-group">
+        <div class="input-group-text">Grade</div>
+        <input type="number" class="form-control" placeholder="Grade (0 - 100)" value="{{ request.form['grade'] }}" name="grade">
+      </div>
+      <br>
+      <div class="input-group">
+        <div class="input-group-text">Start Time</div>
+        <input type="time" class="form-control" value="{{ request.form['start'] }}" name="start">
+        <div class="input-group-text">End Time</div>
+        <input type="time" class="form-control" value="{{ request.form['end'] }}" name="end">
+      </div>
+      <br>
+      <div class="form-check-label">Meeting Days</div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Monday" name="check">
+        <label class="form-check-label">
+         Monday
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Tuesday" name="check">
+        <label class="form-check-label">
+          Tuesday
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Wednesday" name="check">
+        <label class="form-check-label">
+          Wednesday
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Thursday" name="check">
+        <label class="form-check-label">
+          Thursday
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Friday" name="check">
+        <label class="form-check-label">
+          Friday
+        </label>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Submit Here</button>
+    </div>
+</form>
+{% endblock %}

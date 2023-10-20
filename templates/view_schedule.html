@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} View Schedule {% endblock %}
+{% block content %}
+<body class="text-center">
+    {% for day in schedule %}
+        {% if schedule[day] %}
+            <h4>{{ day }}</h4>
+            {% for course in schedule[day] %}
+                <strong>{{ course.title }} ({{ course.instructor }}) -</strong>
+                <i>Start: {{ course.meeting_time[0] }}</i>
+                <i>End: {{ course.meeting_time[1] }}</i>
+                <br />
+            {% endfor %}
+            <br />
+        {% endif %}
+    {% endfor %}
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

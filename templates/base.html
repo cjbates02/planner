@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url_for('index')}}">
+        <button type="button" class="btn btn-light btn-lg">Planner</button>
+      </a>
+      <a class="navbar-brand" href="{{ url_for('view_schedule')}}">
+        <button type="button" class="btn btn-light">View Schedule</button>
+      </a>
+      <a class="navbar-brand" href="{{ url_for('add_course')}}">
+        <button type="button" class="btn btn-light">Add Course</button>
+      </a>
+    </nav>
+    <br />
+    <div class="container font-family-sans-serif">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
