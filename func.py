@@ -28,7 +28,8 @@ class User:
 
 class Course:
 
-    def __init__(self, title, instructor, meeting_time, grade, meeting_days):
+    def __init__(self, title, instructor, meeting_time, grade, meeting_days, id):
+        self.id = id
         self.title = title # string
         self.instructor = instructor # string
         self.meeting_days = meeting_days # ['Monday', ... , 'Friday']

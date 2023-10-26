@@ -3,6 +3,7 @@ from func import Course, User
 import sqlite3
 import json
 from dotenv import load_dotenv
+
 app = Flask(__name__)
 import os
 
@@ -28,7 +29,7 @@ Purpose is too make formatting of the schedule easier on the html template and u
 def formatCourses(_courses):
     courses = []
     for course in _courses:
-        courses.append(Course(course['title'], course['instructor'], [course['start_time'], course['end_time']], course['grade'], json.loads(course['meeting_days']))) # json.loads converts json file back to python list
+        courses.append(Course(course['title'], course['instructor'], [course['start_time'], course['end_time']], course['grade'], json.loads(course['meeting_days']), course['rowid'])) # json.loads converts json file back to python list
     return courses
 
 """
@@ -40,7 +41,7 @@ Finally, we obtain a schedule dictionary using create schedule function from Use
 @app.route('/view-schedule')
 def view_schedule():
     cur = getdbConnection()
-    _courses = cur.execute('SELECT * FROM course').fetchall()
+    _courses = cur.execute('SELECT rowid, * FROM course').fetchall()
     cur.close()
 
     courses = formatCourses(_courses)
@@ -92,6 +93,36 @@ def add_course():
 
 
     return render_template('add_course.html')
+
+
+"""
+Established connection to database and executes command pulling all of the posts from the database as well as the row id.
+The row id needs to explicitely stated because it is a hidden column in SQLite. Then we format the courses and create
+a schedule. We save the length of the courses iterable for later use to conditionally display a button on our frontend.
+Then we pull the post id's from our frontend and loop through the list of id's deleting each course from the database.
+"""
+@app.route('/delete-course', methods=('GET', 'POST'))
+def del_course():
+    cur = getdbConnection()
+    _courses = cur.execute('SELECT rowid, * FROM course').fetchall()
+
+    courses = formatCourses(_courses)
+    user1 = User('Christian', 'Junior', courses) # temporary
+    schedule = user1.create_schedule()
+    count = len(courses)
+
+    if request.method == 'POST':
+        post_ids = request.form.getlist('courses')
+        post_ids = set(post_ids) # remove duplicates by converting to a set
+        print(post_ids)
+        for id in post_ids:
+            cur.execute('DELETE FROM course WHERE rowid = ?', (id))
+
+        cur.commit()
+        cur.close()
+        return(redirect(url_for('view_schedule')))
+
+    return render_template('delete_course.html', schedule=schedule, count=count)
 
 
 

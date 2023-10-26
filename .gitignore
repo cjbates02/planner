@@ -1,0 +1,6 @@
+.env
+bin
+init_db.py
+backup.txt
+share
+test.py
