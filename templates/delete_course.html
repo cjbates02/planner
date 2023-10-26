@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete Courses {% endblock %}
+
+{% block content %}
+<form method="POST">
+    <div>
+        {% for day in schedule %}
+            {% if schedule[day] %}
+                <h4>{{ day }}</h4>
+                {% for course in schedule[day] %}
+                    <input type="checkbox" name="courses" value="{{ course.id }}">
+                    <strong>{{ course.title }} ({{ course.instructor }}) -</strong>
+                    <i>Start: {{ course.meeting_time[0] }}</i>
+                    <i>End: {{ course.meeting_time[1] }}</i>
+                    <br />
+                {% endfor %}
+                <br />
+            {% endif %}
+        {% endfor %}
+        {% if count > 0 %}
+            <button type="submit" class="btn btn-danger">Delete Courses</button>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}
+
+
+
+
