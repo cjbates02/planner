@@ -3,26 +3,38 @@
 {% block title %} Delete Courses {% endblock %}
 
 {% block content %}
-<form method="POST">
-    <div>
-        {% for day in schedule %}
-            {% if schedule[day] %}
-                <h4>{{ day }}</h4>
-                {% for course in schedule[day] %}
-                    <input type="checkbox" name="courses" value="{{ course.id }}">
-                    <strong>{{ course.title }} ({{ course.instructor }}) -</strong>
-                    <i>Start: {{ course.meeting_time[0] }}</i>
-                    <i>End: {{ course.meeting_time[1] }}</i>
-                    <br />
-                {% endfor %}
-                <br />
+    <form method="POST">
+        <table class="table table-striped table-light" align="center">
+            <tr>
+                <th>Select</th>
+                <th>Course Name</th>
+                <th>Instructor</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Grade</th>
+            </tr>
+            {% for course in courses %}
+                    <tr>
+                        <td><input type="checkbox" name="courses" value="{{ course.id }}"></td>
+                        <td>{{ course.title }}</td>
+                        <td>{{ course.instructor }}</td>
+                        <td>{{ course.meeting_time[0] }}</td>
+                        <td>{{ course.meeting_time[1] }}</td>
+                        <td>{{ course.grade }}</td>
+                    </tr>
+            {% endfor %}
+        </table>
+
+        <div>
+            {% if count > 0 %}
+                <button type="submit" class="btn btn-danger">Delete Courses</button>
+            {% else %}
+                <a href="{{ url_for('add_course') }}">
+                    <div class="alert alert-info" role="alert" >No courses to delete, click here to add courses.</div>
+                </a>
             {% endif %}
-        {% endfor %}
-        {% if count > 0 %}
-            <button type="submit" class="btn btn-danger">Delete Courses</button>
-        {% endif %}
-    </div>
-</form>
+        </div>
+    </form>
 {% endblock %}
 
 
